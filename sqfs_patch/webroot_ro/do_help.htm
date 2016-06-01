@@ -1,0 +1,265 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<title>Help</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="public/style.css" />
+<script src="lang/b28n.js"></script>
+<script src="public/menu.js"></script>
+<script>
+B.setTextDomain("all");
+var help_array=new Array(
+'help ?'
+	,'<b>4353453</b>'
+
+,'st_system'
+	,'<b>' + _("Status") + '</b><br>' +
+	_("Device Name: Displays the device name.") + '<br>' +
+	_("System Time: Displays the current system time.") + '<br>' +
+	_("Up Time: Displays the device's uptime.") + '<br>' +
+	_("Number of Wireless Clients: This section displays the information of wireless connected clients.") + '<br>' +
+	_("Firmware Version: Displays the device's current firmware version.") + '<br>' +
+	_("Hardware Version: Displays the device's hardware version.") + '<br>' +
+	 '<strong>' + _("LAN Status") + '</strong><br>' +
+	_("MAC Address: Displays the current AP's LAN MAC address.") + '<br>' +
+	_("IP Address: Displays the current AP's IP address.") + '<br>' +
+	_("Subnet Mask: Displays the current AP's subnet mask. The default is 255.255.255.0.") + '<br>' + 
+	_("Primary DNS Server:  Show the necessary DNS address provided by your ISP.") + '<br>' +
+	_("Secondary DNS Server:  Show the other DNS address if your ISP offers you two DNS addresses.")
+	
+,'st_wireless'
+	,'<strong>' + _("Radio") + '</strong>' + '<br>' +
+	_("Radio ON/OFF: Displays the primary SSID's wireless status.") + '<br>' +
+	_("Network Mode: Displays currently operative network mode. We recommend you select 11b/g/n mixed mode.") + '<br>' +
+	_("Channel: Displays the channel the device is currently operating on.") + '<br>' +
+	'<strong>' + _("SSID Status") + '</strong><br>' +
+	_("SSID: Displays the current SSIDs of the wireless network.") + '<br>' +
+	_("MAC Address: Displays the current AP's MAC addresses.") + '<br>' +
+	_("Enabling Status: Displays SSID's enabling status.") + '<br>' +
+	_("Security: Displays current security mode.") + '<br>' +
+	'<strong>' + _("WDS Status") + '</strong><br>' +
+	_("MAC Address: Displays the remote AP's MAC address.") + '<br>' +
+	_("Connection Status: Displays the device's connection status.") + '<br>' +
+	_("Note: When WDS is disabled, this status won't be displayed.")
+
+,'st_ap'
+	,'<strong>' + _("Traffic Statistics") + '</strong><br>' +
+	_("SSID: Displays current SSID of the wireless network.") + '<br>' +
+	_("Total RX Traffic: Total RX bytes SSID has received.") + '<br>' +
+	_("Total RX Packets: Total RX packets SSID has received.") + '<br>' +
+	_("Total TX Traffic: Total TX bytes SSID has transmitted.") + '<br>' +
+	_("Total TX Packets: Total TX packets SSID has transmitted.")
+
+,'st_wirelesslist'
+	,'<strong>' + _("Client List") + '</strong><br>' +
+	_("Select the SSID you wish to check and its wireless client information will appear.") + '<br>' +
+	_("MAC Address : Displays wireless client's MAC address.") + '<br>' +
+	_("IP Address : Displays wireless client's IP address.") + '<br>' +
+	_("Connection Time: Displays connection duration SSID has connected to.") + '<br>' +
+	_("Send Speed: Displays the current device's send speed.") + '<br>' +
+	_("Receive Speed: Displays the current device's receive speed.")
+
+,'wizard'
+	,'<b>' + _("Quick Setup") + '</b><br>' +
+	_("This device supports 3 working modes. You can select it as you need.") + '<br>' +
+	_("AP Mode: It can achieve the conversion between cable signals and wireless signals. If this device is connected to the broadband interface of a hotel room, you can achieve network sharing among multiple PCs without any configuration.") + '<br>' +
+	_("WDS Mode: In this bridging mode,the primary SSID and channel will be the same as that of the remote AP automatically. And so will the security mode and key.") + '<br>' +
+	_("Client AP: The primary SSID and channel will be the same as that of the uplinked AP automatically. So will the security mode and key") + '<br>' +
+	_("The secondary SSID (wireless network) now works as a wireless Access Point, providing access to wireless clients. In this mode, the DHCP server is disabled automatically.")
+
+,'wl_wizard'
+	,'<strong>' + _("AP Mode") + '</strong><br>' +
+	_("In this mode, this device can be connected to wireless clients, but cannot connect other APs actively.") + '<br>' +
+	_("SSID: Displays the primary SSID's name.") + '<br>' +
+	_("Security Mode: Displays primary SSID's security mode.") + '<br>' +
+	'<strong>' + _("WDS Mode") +'</strong><br>' +
+	_("In this mode, this device can provide access to at most 4 APs.") + '<br>' +
+	_("SSID: The default is this device's primary SSID. Once WDS is enabled, the primary SSID will be modified to the first remote AP's SSID.") + '<br>' +
+	_("Security Mode: You can configure primary SSID's security mode and it should be kept the same as that of the remote AP.") + '<br>' +
+	_("MAC Address: You can enter the remote MAC address manually or open scan to add it automatically.") + '<br>' +
+	_("Channel: When WDS is enabled, please keep all APs on the same channel.") + '<br>' +
+	_("Status:") + '<br>' +
+	_("Unknown: The default status is unknown.") + '<br>' +
+	_("Connected: %s has connected to the remote AP successfully. But in WDS mode,the remote AP also needs to connect to %s at the same time.",[G_deviceName, G_deviceName]) + '<br>' +
+	_("Disconnected: %s hasn't connected to the remote AP.",[G_deviceName]) + '<br>' +
+	_("Enable Scan: Scans wireless signals nearby.") + '<br>' +
+	_("Note:") + '<br>' +
+	_("In WDS mode,the two APs should support WDS and you should keep their SSIDs, channels, security modes and keys the same. As for IP address, they should not be the same but on the same network segment;") + '<br>' +
+	'<strong>' + _("AP Client Mode") + '</strong><br>' +
+	_("In this mode, %s negotiates with the uplinked AP successfully and also provides access to lower clients. %s's SSID won't be changed.",[G_deviceName, G_deviceName]) + '<br>' +
+	_("SSID: You can configure the uplinked AP's SSID name here.") + '<br>' +
+	_("Security Mode: You can configure the uplinked AP's security mode here.") + '<br>' +
+	_("Channel: You can configure the uplinked AP's channel here.")
+
+,'lan'
+	,'<b>' + _("LAN Setup") + '</b><br>' +
+	_("Here you can configure the LAN IP address.") + '<br>' +
+	_("IP Address: The AP's LAN IP address. The default is 192.168.0.254.") + '<br>' +
+	_("Subnet Mask: The AP's LAN subnet mask.") + '<br>' +
+	_("Gateway: Enter the IP address of the uplinked router.") + '<br>' +
+	_("Primary DNS Server:  Enter the necessary DNS address provided by your ISP (This field cannot be blank). Consult your ISP if you are not clear.") + '<br>' +
+	_("Secondary DNS Server:  Enter the other DNS address if your ISP offers you two DNS addresses (This field is optional).")  + '<br>' +
+	'<b>' + _("Note") + '</b><br>' +
+	_("If necessary please press the Reset button to restore factory settings.")+ '<br>' +
+	_("If you change this IP address, you must use the new one to re-log on to this web utility.")
+	
+
+,'dhcpserverset'
+	,'<b>' + _("DHCP Server") + '</b><br>' +
+	_("DHCP Server: Select whether to enable or disable the DHCP server feature.") + '<br>' +
+	_("Start IP:  Enter the starting IP address for the DHCP server's IP assignment.") + '<br>' +
+	_("End IP:  Enter the ending IP address for the DHCP server's IP assignment.") + '<br>' +
+	_("Lease Time:  The length of time for the IP address lease.") + '<br>' +
+	_("Subnet Mask: The AP's LAN subnet mask.") + '<br>' +
+	_("Gateway: Enter the IP address of the uplinked router.") + '<br>' +
+	_("Primary DNS Server:  Enter the necessary DNS address provided by your ISP (This field cannot be blank). Consult your ISP if you are not clear.") + '<br>' +
+	_("Secondary DNS Server:  Enter the other DNS address if your ISP offers you two DNS addresses (This field is optional).") + '<br>' +
+	'<strong>' + _("Note") + '</strong><br>' +
+	_("To apply the DHCP server settings to all your LAN PCs, you must set all PCs to 'Obtain an IP address automatically' and 'Obtain DNS server address automatically' respectively.")
+
+,'wl_basic'
+	,'<b>' + _("Basic") + '</b><br>' +
+	_("In this section you can configure the basic wireless settings of the device such as the SSID (name of the network) and broadcast channel.") + '<br>' +
+	_("Enable: Select it to enable this SSID.") + '<br>' +
+	_("Hide SSID automatically: If you select this item, and when number of clients reach to the maximum, this SSID will be hidden automatically.If you select this item,SSID Broadcast can't be selected.") + '<br>' +
+	_("SSID Broadcast: This option allows you to have your network name (SSID) publicly broadcast or if you choose to disable it, the SSID will be hidden.") + '<br>' +
+	_("AP Isolation: Isolates clients connecting to the same SSID.") + '<br>' +
+	_("Maximum Clients: Total clients should be within 128.") + '<br>' +
+	_("SSID: This is the public name of your wireless network. Select the SSID you wish to configure from the drop-down list.") + '<br>' +
+	_("Chinese SSID Encode: To support Chinese SSID according to the wireless client supports codeing format selection UFT-8/GB2312 code, the default is UTF-8.") + '<br>' +
+	_("Security Mode: Select WEP, WPA-PSK or WPA2-PSK.") + '<br>' +
+	_("(1).WEP: compliance with the full IEEE 802.11 standard.") + '<br>' +
+	_("Encryption Type: Open, Shared, 802.1X") + '<br>' +
+	_("Enter a WEP key that is either 5~13 ASCI characters or 10~26 Hex characters when your encryption type is Open and Shared.") + '<br>' +
+	_("(2).WPA/WPA2-Personal: A mode based on WPA/WPA2-PSK .You can enable personal (PSK) or mixed mode, but you must make sure that the wireless client also supports the selected encryption method.") + '<br>' +
+	_("Cipher Type: Select AES, TKIP and TKIP&AES;") + '<br>' +
+	_("Key: Enter a security key that is either 8-63 ASCII characters or 8-64 Hex characters.") + '<br>' +
+	_("Key Update Interval: You can configure security key's upgrade cycle here(60—99999 seconds).") + '<br>' +
+	_("(3).WPA/WPA2-Enterprise : A mode based on Radius server authentication.") + '<br>' +
+	_("Radius Server: Displays the Radius server's IP address.") + '<br>' +
+	_("Radius Port: Authentication port for Radius server. The default is 1812.") + '<br>' +
+	_("Radius Key: Enter a key that is 1-64 ASCI characters.") + '<br>' +
+	_("Cipher Type: Select AES, TKIP and TKIP&AES;") + '<br>' +
+	_("Key Update Interval: You can configure security key's upgrade cycle here.60—99999 seconds. If set to 0, key will not be updated.")+ '<br>' +
+	'<strong>' + _("Note:") + '</strong>' + _("When your security mode is WEP or WPA/WPA2, please be sure your wireless client supports it.")
+
+,'wl_radio'
+	,'<b>' + _("Radio") + '</b><br>' +
+	_("Here you can configure basic wireless settings including network mode, channel, extension channel, channel bandwidth and etc.") + '<br>' +
+	_("Network Mode: Select a proper network mode: 11 b/g/n mixed, 11 b/g mixed, 11g or 11b.") + '<br>' +
+	_("Channel: For an optimal wireless performance, you may select the least interferential channel. It is advisable that you select 'Auto' to let the device detect and select the best possible channel for your wireless network to operate on.") + '<br>' +
+	_("Extension Channel: This is used to ensure N speeds for 802.11n devices on the network (2.4GHz).") + '<br>' +
+	_("Channel Lockout: You can configure channel lockout, channel bandwidth and channel extension here. In AP Client and WDS mode, just keep the default configuration and the channel will be kept the same as that of the uplinked device automatically.") + '<br>' +
+	_("SSID Isolation: Isolates clients connecting to different SSIDs.")
+
+,'wl_channel'
+	,'<b>' + _("Channel Scan") + '</b><br>' +
+	_("You can open scan to scan current wireless signals.")
+
+,'wl_wds'
+	,'<b>' + _("WDS") + '</b>' +
+	_("WDS Mode: If you select WDS Repeater mode, you can enable scan to automatically add the MAC address of the selected remote device to the AP MAC address field and then manually set the primary SSID, mode, channel, security mode and security key of your AP to match the remote AP.For better compatibility with the remote AP, WEP encryption is recommended.")
+
+,'wl_advance'
+	,'<b>' + _("Advanced") + '</b><br>' +
+	_("This section allows you to configure advanced wireless settings. if you are new to networking and have never configured these settings before, we recommend you to leave the default settings unchanged.") + '<br>' +
+	_("Beacon Interval: This is a time interval between any two consecutive Beacon packets sent by an Access Point to synchronize a wireless network. Specify a valid value between 20 and 999. The default setting is 100.") + '<br>' +
+	_("Fragment Threshold: Specify a valid Fragment Threshold value between 255 and 2346. The default is 2346. Any wireless packet exceeding the preset value will be divided into several fragments before transmission.") + '<br>' +
+	_("RTS Threshold: Specify a valid value between 1 and 2347. The default is 2347. If a packet exceeds the preset value, RTS/CTS scheme will be used to reduce collisions. A smaller value is recommended if you have distant clients or interference on your network.") + '<br>' +
+	_("DTIM Interval: A DTIM (Delivery Traffic Indication Message) Interval is a countdown informing clients of the next window for listening to broadcast and multicast messages. When such packets arrive in the router's buffer, the router will send DTIM (delivery traffic indication message) and DTIM interval to alert clients of the receiving packets. Specify a valid value between 1-255. The default is 1.") + '<br>' +
+	_("Receive Signal strength:This section allows AP to receive signal strength (in dBm) , range: (-90- -60)dBm.2.4G :the default is -80dBm,5G :the default is -90dBm.") + '<br>' +
+	_("Interference mitigation: interference mitigation mode , range: 0-4. The default is 2.") + '<br>' +
+	_("(1).mode 0: All interference mitigation is disabled.") + '<br>' +
+	_("(2).mode 1: Non-wireless LAN Interference mitigation is enabled.") + '<br>' +
+	_("(3).mode 2: Wireless LAN Interference mitigation is enabled.") + '<br>' +
+	_("(4).mode 3: Auto Wireless LAN Interference mitigation is enabled and active.") + '<br>' +
+	_("(5).mode 4: Auto Wireless LAN Interference mitigation is enabled and noise reduction is enabled.") + '<br>' +
+	_("TX Power: Control TX power.2.4G range: 17-23dBm. The default is 23dBm, 5G range: 17-21dBm. The default is 21dBm.") + '<br>' +
+	_("Power Lockout: Once enabled, you can lockout this configuration.") + '<br>' +
+	_("The 8 bytes of the preamble and the Start of Frame create a pattern of 64 bits. 7 bytes of the preamble are for synchronization and 1 byte is for SFD, which basically says here comes a new frame, being a 'get ready' notification. There are two types of preambles: long preamble and short preamble. By default, the device transmits data using the long preamble.") + '<br>' +
+	_("5GHZ SSID priority: If your wireless client supports 5G WIFI,client will preferential choose 5G ssid which 2.4G and 5G ssid and security is same.")
+
+,'wl_filter'
+	,'<b>' + _("Wireless Access Control") + '</b><br>' +
+	_("Specify a list of devices to allow or disallow a connection to your wireless network via the device's MAC addresses.") + '<br>' +
+	_("To deactivate this feature, select 'Disable'; to activate it, select 'Allow' or 'Deny'.")
+
+,'wl_qvlan'
+	,'<b>' + _("QVLAN Configuration") + '</b><br>' +
+	_("When 802.1 QVLAN enabled, this device can be used with switches with VLAN function and establish multiple wireless subnets. Clients connecting to different VLAN IDs cannot access each other.") + '<br>' +
+	_("SSID: Displays current SSID of the wireless network.") + '<br>' +
+	_("VLAN ID: You can configure VLAN ID here(2-4095).") + '<br>' +
+	_("You can configure SSID's binding info to VLAN here. The default is 1000(2-4095).")
+
+,'snmp'
+	,'<b>' + _("SNMP") + '</b><br>' +
+	_("Here you can configure SNMP v1 & v2c that can read and write Administrator Name, Device Name, and Location.") + '<br>' +
+	_("SNMP: Enable/disable the SNMP proxy feature.") + '<br>' +
+	_("Read Community: Specify a community string for reading SNMP proxy information.") + '<br>' +
+	_("Write/Read Community: Specify a community string for writing/reading SNMP proxy information.")
+
+,'timeReboot'
+	,'<b>' + _("Time Reboot") + '</b><br>' +
+	_("Here you can time the AP to reboot. Time is based on 24hs/day format. When setting the time reboot feature, make sure the device's system time synchronizes with Internet time server.") 
+,'time'
+	,'<b>' + _("Time & Date") + '</b><br>' +
+	_("This section assists you in setting the device's current time; you can select to either  set the time and date manually or obtain the GMT time from Internet automatically.")
+
+,'overtime'
+	,'<b>' + _("Timeout Setup") + '</b><br>'+
+	_("Here you can configure the web login timeout (1-60 minutes). The default is 5 minutes.")
+
+,'restore'
+	,'<b>' + _("Restore to Factory Default") +'</b><br>' +
+	_("Click this button to reset the device to factory default values.") + '<br>' +
+	_("Default User Name: admin.") + '<br>' +
+	_("Default Password: admin.") + '<br>' +
+	_("Default IP Address: 192.168.0.254") + '<br>' +
+	_("Default Subnet Mask: 255.255.255.0")
+
+,'password'
+	,'<b>' + _("Username & Password") + '</b><br>' +
+	_("This section allows you to change your login user name and password.")
+	
+,'logsetting'
+	,'<b>' + _("Log Settings") + '</b><br>' +
+	_("Log Server IP Address:  SysLog Server IP Address.") + '<br>' +
+	_("Log Server Port: Refers to the protocol port for syslog (514 by default). You should set it the same to the host server.") + '<br>' +
+	_("Enable:  Select whether to enable the log server.")
+
+,'led'
+	,'<b>' + _("LED") + '</b><br>' +
+	_("This section allows you to modify LED status.")
+);
+window.onload = function(){
+	var htag=window.location.hash.replace(/#/,'');
+	document.getElementById("head").innerHTML = tbl_head(20);
+	if (htag == '') htag='help';
+	var help_msg = help_array[1];
+	for (var i = 0; i < help_array.length; i += 2)
+	{
+		if (help_array[i] == htag)
+		{	
+			help_msg=help_array[i+1];
+			break;
+		}
+	}
+	document.getElementById("help_msg").innerHTML = help_msg;
+}
+</script>
+</head>
+<body>
+<div class="divbody">
+	<div id="head"></div>
+	<div class="w750">
+		<table id="help" >
+			<tr>
+				<td id="help_msg" class="p15"></td>
+			</tr>
+		</table>
+		<div id="tail"><br><input type="button" class="button" onClick="history.go(-1)" value="Continue"></div>
+	</div>
+</div>
+</body>
+</html>
